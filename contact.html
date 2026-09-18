@@ -1,0 +1,67 @@
+﻿<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Contacter Pape Guene SENE."><title>Contact | Pape Guene SENE</title>
+<link rel="stylesheet" href="css/style.css"><script src="js/app.js" defer></script></head>
+<body>
+  <header class="site-header">
+    <a class="brand"><span>PGS</span></a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+      Menu
+    </button>
+
+    <nav id="main-nav" class="main-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="about.html">À propos</a>
+      <a href="projects.html">Projets</a>
+      <a class="active" href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero section">
+      <p class="eyebrow">CONTACT</p>
+      <h1>Parlons de votre prochain projet numérique.</h1>
+      <p class="lead">Le formulaire est une démonstration front-end : les données ne sont pas envoyées à un serveur.</p>
+    </section>
+
+    <section class="section contact-layout">
+      <aside class="contact-info">
+        <h2>Coordonnées</h2>
+        <p><strong>Email</strong><br><a href="mailto:papeguenesene@gmail.com">papeguenesene@gmail.com</a></p>
+        <p><strong>Téléphone</strong><br>+221 77 436 47 59<br>+221 76 130 12 71</p>
+        <p><strong>Localisation</strong><br>Fatick, Sénégal</p>
+      </aside>
+
+      <form id="contact-form" class="contact-form" novalidate>
+        <div class="field-group">
+          <label for="name">Nom complet *</label>
+          <input id="name" name="name" type="text" autocomplete="name" required>
+          <span class="error" id="name-error"></span>
+        </div>
+
+        <div class="field-group">
+          <label for="email">Adresse email *</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+          <span class="error" id="email-error"></span>
+        </div>
+
+        <div class="field-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+          <span class="error" id="message-error"></span>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Envoyer le message</button>
+        <p id="form-feedback" class="form-feedback" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Pape Guene SENE</p>
+    <p>Merci pour votre visite.</p>
+  </footer>
+</body>
+</html>
