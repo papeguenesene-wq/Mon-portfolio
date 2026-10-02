@@ -12,7 +12,58 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 2) VALIDATION DU FORMULAIRE DE CONTACT
+  // Masque les photos absentes pour conserver le visuel de remplacement.
+  document.querySelectorAll(".activity-image img").forEach(image => {
+    const imageContainer = image.parentElement;
+    const showLoadedImage = () => {
+      imageContainer.classList.add("has-photo");
+    };
+    const hideUnavailableImage = () => {
+      image.hidden = true;
+    };
+
+    image.addEventListener("load", showLoadedImage, { once: true });
+    image.addEventListener("error", hideUnavailableImage, { once: true });
+    if (image.complete) {
+      if (image.naturalWidth === 0) {
+        hideUnavailableImage();
+      } else {
+        showLoadedImage();
+      }
+    }
+  });
+
+  // 2) FILTRAGE DES ACTIVITÉS
+  const filters = document.querySelectorAll("[data-filter]");
+  const activityCards = document.querySelectorAll(".activity-card[data-category]");
+  const activityResult = document.querySelector(".activity-result");
+
+  if (filters.length && activityCards.length) {
+    filters.forEach(filter => {
+      filter.addEventListener("click", () => {
+        const selectedCategory = filter.dataset.filter;
+        let visibleCount = 0;
+
+        filters.forEach(item => {
+          const isSelected = item === filter;
+          item.classList.toggle("active", isSelected);
+          item.setAttribute("aria-pressed", String(isSelected));
+        });
+
+        activityCards.forEach(card => {
+          const isVisible = selectedCategory === "all" || card.dataset.category === selectedCategory;
+          card.hidden = !isVisible;
+          if (isVisible) visibleCount += 1;
+        });
+
+        if (activityResult) {
+          activityResult.textContent = `Affichage de ${visibleCount} intervention${visibleCount > 1 ? "s" : ""}`;
+        }
+      });
+    });
+  }
+
+  // 3) VALIDATION DU FORMULAIRE DE CONTACT
   const form = document.querySelector("#contact-form");
   if (!form) return;
 
