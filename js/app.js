@@ -12,6 +12,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Navigation des photos Starlink.
+  document.querySelectorAll(".activity-carousel").forEach(carousel => {
+    const track = carousel.querySelector(".activity-carousel-track");
+    const slides = carousel.querySelectorAll(".activity-slide");
+    const position = carousel.querySelector(".activity-carousel-position");
+
+    if (!track || !position || slides.length === 0) return;
+
+    let currentSlide = 0;
+
+    const showSlide = (index) => {
+      currentSlide = (index + slides.length) % slides.length;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      position.textContent = `Photo ${currentSlide + 1} sur ${slides.length}`;
+
+      slides.forEach((slide, slideIndex) => {
+        slide.setAttribute("aria-hidden", String(slideIndex !== currentSlide));
+      });
+    };
+
+    carousel.querySelectorAll("[data-carousel-step]").forEach(control => {
+      control.addEventListener("click", () => {
+        showSlide(currentSlide + Number(control.dataset.carouselStep));
+      });
+    });
+
+    showSlide(currentSlide);
+  });
+
   // Masque les photos absentes pour conserver le visuel de remplacement.
   document.querySelectorAll(".activity-image img").forEach(image => {
     const imageContainer = image.parentElement;

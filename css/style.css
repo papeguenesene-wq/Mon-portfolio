@@ -864,6 +864,77 @@ main {
   background-color: #f4ead7;
 }
 
+.activity-carousel {
+  padding: 0.6rem;
+  background: var(--color-surface);
+}
+
+.activity-carousel-window {
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--color-bg);
+}
+
+.activity-carousel-track {
+  display: flex;
+  transition: transform 0.35s ease;
+}
+
+.activity-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.activity-slide img {
+  display: block;
+  width: 100%;
+  height: clamp(300px, 65vw, 560px);
+  background: var(--color-bg);
+  object-fit: contain;
+}
+
+.activity-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding-top: 0.65rem;
+}
+
+.activity-carousel-controls button {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.activity-carousel-controls button:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.activity-carousel-position {
+  min-width: 6.5rem;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .activity-carousel-track {
+    transition: none;
+  }
+}
+
 .activity-body {
   padding: 1.35rem 1.4rem 1.5rem;
 }
