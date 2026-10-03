@@ -12,33 +12,108 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Navigation des photos Starlink.
-  document.querySelectorAll(".activity-carousel").forEach(carousel => {
+  // Défilement automatique des photos d’activité.
+  document.querySelectorAll(".activity-carousel[data-autoplay]").forEach(carousel => {
     const track = carousel.querySelector(".activity-carousel-track");
     const slides = carousel.querySelectorAll(".activity-slide");
-    const position = carousel.querySelector(".activity-carousel-position");
 
-    if (!track || !position || slides.length === 0) return;
+    if (!track || slides.length < 2) return;
 
     let currentSlide = 0;
+    let autoplayTimer = null;
+    let pointerInside = false;
+    let focusInside = false;
+    let trackPosition = 1;
 
-    const showSlide = (index) => {
-      currentSlide = (index + slides.length) % slides.length;
-      track.style.transform = `translateX(-${currentSlide * 100}%)`;
-      position.textContent = `Photo ${currentSlide + 1} sur ${slides.length}`;
+    const firstClone = slides[0].cloneNode(true);
+    const lastClone = slides[slides.length - 1].cloneNode(true);
+    firstClone.setAttribute("aria-hidden", "true");
+    lastClone.setAttribute("aria-hidden", "true");
+    firstClone.querySelector("img").alt = "";
+    lastClone.querySelector("img").alt = "";
+    track.append(firstClone);
+    track.prepend(lastClone);
+
+    const stopAutoplay = () => {
+      if (autoplayTimer !== null) {
+        window.clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    };
+
+    const resetClonePosition = () => {
+      trackPosition = trackPosition === 0 ? slides.length : 1;
+      track.style.transition = "none";
+      track.style.transform = `translateX(-${trackPosition * 100}%)`;
+      track.offsetHeight;
+      track.style.removeProperty("transition");
+    };
+
+    const moveSlide = (step) => {
+      currentSlide = (currentSlide + step + slides.length) % slides.length;
+      trackPosition += step;
+      track.style.transform = `translateX(-${trackPosition * 100}%)`;
 
       slides.forEach((slide, slideIndex) => {
         slide.setAttribute("aria-hidden", String(slideIndex !== currentSlide));
       });
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches && (trackPosition === 0 || trackPosition === slides.length + 1)) {
+        resetClonePosition();
+      }
     };
 
-    carousel.querySelectorAll("[data-carousel-step]").forEach(control => {
-      control.addEventListener("click", () => {
-        showSlide(currentSlide + Number(control.dataset.carouselStep));
-      });
+    track.addEventListener("transitionend", event => {
+      if (
+        event.target === track &&
+        (trackPosition === 0 || trackPosition === slides.length + 1)
+      ) {
+        resetClonePosition();
+      }
     });
 
-    showSlide(currentSlide);
+    const startAutoplay = () => {
+      if (
+        pointerInside ||
+        focusInside ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        return;
+      }
+
+      stopAutoplay();
+      autoplayTimer = window.setInterval(() => {
+        moveSlide(1);
+      }, 5000);
+    };
+
+    carousel.addEventListener("pointerenter", () => {
+      pointerInside = true;
+      stopAutoplay();
+    });
+
+    carousel.addEventListener("pointerleave", () => {
+      pointerInside = false;
+      startAutoplay();
+    });
+
+    carousel.addEventListener("focusin", () => {
+      focusInside = true;
+      stopAutoplay();
+    });
+
+    carousel.addEventListener("focusout", event => {
+      if (!carousel.contains(event.relatedTarget)) {
+        focusInside = false;
+        startAutoplay();
+      }
+    });
+
+    track.style.transform = `translateX(-${trackPosition * 100}%)`;
+    slides.forEach((slide, slideIndex) => {
+      slide.setAttribute("aria-hidden", String(slideIndex !== currentSlide));
+    });
+    startAutoplay();
   });
 
   // Masque les photos absentes pour conserver le visuel de remplacement.
