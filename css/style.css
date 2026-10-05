@@ -380,7 +380,7 @@ textarea {
 }
 
 .timeline article h2,
-.project-card h2 {
+.project-card h3 {
   margin: 0 0 0.8rem;
   font-size: 1.4rem;
 }
@@ -431,8 +431,18 @@ textarea {
 }
 
 .project-card.featured {
-  grid-column: span 2;
   border-color: rgba(18, 149, 104, 0.3);
+}
+
+.project-domain {
+  display: grid;
+  align-content: start;
+  gap: 1.1rem;
+}
+
+.project-domain > h2 {
+  margin: 0;
+  font-size: 1.6rem;
 }
 
 .tag {
