@@ -1,7 +1,7 @@
 ﻿<!doctype html>
 <html lang="fr">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Contacter Pape Guene SENE."><title>Contact | Pape Guene SENE</title>
+<meta name="description" content="Services en réseaux, systèmes, maintenance informatique, assistance aux utilisateurs et accompagnement numérique par Pape Guene SENE."><title>Services & contact | Pape Guene SENE</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/app.js" defer></script></head>
@@ -24,40 +24,56 @@
 
   <main>
     <section class="page-hero section">
-      <p class="eyebrow">CONTACT</p>
-      <h1>Parlons de votre prochain projet numérique.</h1>
-      <p class="lead">Le formulaire est une démonstration front-end : les données ne sont pas envoyées à un serveur.</p>
+      <p class="eyebrow">SERVICES & CONTACT</p>
+      <h1>Réseaux, systèmes et accompagnement numérique.</h1>
+      <p class="lead">Ingénieur réseaux et systèmes, avec une expérience en maintenance informatique, support aux utilisateurs et pédagogie numérique. Décrivez votre besoin pour me contacter directement.</p>
     </section>
 
     <section class="section contact-layout">
       <aside class="contact-info">
-        <h2>Coordonnées</h2>
+        <h2>Domaines d’intervention</h2>
+        <ul class="service-list">
+          <li><strong>Réseaux & télécommunications</strong><br>Configuration, supervision et diagnostic d’infrastructures réseau.</li>
+          <li><strong>Systèmes & maintenance informatique</strong><br>Administration des environnements Windows et Linux, maintenance des systèmes et du parc informatique.</li>
+          <li><strong>Support aux utilisateurs</strong><br>Assistance technique et accompagnement dans l’utilisation des outils numériques.</li>
+          <li><strong>Pédagogie numérique</strong><br>Appui à l’utilisation de Moodle et à la conception de ressources pédagogiques numériques.</li>
+        </ul>
         <p><strong>Email</strong><br><a href="mailto:papeguenesene@gmail.com">papeguenesene@gmail.com</a></p>
-        <p><strong>Téléphone</strong><br>+221 77 436 47 59<br>+221 76 130 12 71</p>
+        <p><strong>Téléphone</strong><br><a href="tel:+221774364759">+221 77 436 47 59</a></p>
         <p><strong>Localisation</strong><br>Fatick, Sénégal</p>
       </aside>
 
       <form id="contact-form" class="contact-form" novalidate>
         <div class="field-group">
-          <label for="name">Nom complet *</label>
-          <input id="name" name="name" type="text" autocomplete="name" required>
+          <label for="name">Votre nom *</label>
+          <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-error">
           <span class="error" id="name-error"></span>
         </div>
 
         <div class="field-group">
-          <label for="email">Adresse email *</label>
-          <input id="email" name="email" type="email" autocomplete="email" required>
-          <span class="error" id="email-error"></span>
+          <label for="service">Type de besoin *</label>
+          <select id="service" name="service" required aria-describedby="service-error">
+            <option value="">Sélectionnez un domaine</option>
+            <option value="Réseaux et télécommunications">Réseaux et télécommunications</option>
+            <option value="Systèmes et maintenance informatique">Systèmes et maintenance informatique</option>
+            <option value="Support aux utilisateurs">Support aux utilisateurs</option>
+            <option value="Pédagogie numérique et Moodle">Pédagogie numérique et Moodle</option>
+            <option value="Autre demande">Autre demande</option>
+          </select>
+          <span class="error" id="service-error"></span>
         </div>
 
         <div class="field-group">
-          <label for="message">Message *</label>
-          <textarea id="message" name="message" rows="6" required></textarea>
+          <label for="message">Décrivez votre besoin *</label>
+          <textarea id="message" name="message" rows="6" required aria-describedby="message-error"></textarea>
           <span class="error" id="message-error"></span>
         </div>
 
-        <button class="btn btn-primary" type="submit">Envoyer le message</button>
-        <p id="form-feedback" class="form-feedback" role="status" aria-live="polite"></p>
+        <div class="contact-actions">
+          <a class="btn btn-primary" href="tel:+221774364759">Appeler</a>
+          <button class="btn btn-primary" type="submit">Envoyer un message WhatsApp</button>
+        </div>
+        <p id="form-feedback" class="form-feedback" role="status" aria-live="polite">Votre demande sera préparée dans WhatsApp. Vous pourrez la vérifier avant de l’envoyer.</p>
       </form>
     </section>
   </main>

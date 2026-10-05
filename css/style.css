@@ -495,11 +495,29 @@ textarea {
   margin-top: 1rem;
 }
 
+.service-list {
+  display: grid;
+  gap: 0.9rem;
+  padding-left: 1.2rem;
+  color: var(--color-muted);
+}
+
+.service-list strong {
+  color: var(--color-text);
+}
+
 .contact-form {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 1.6rem;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 .field-group {
@@ -515,6 +533,7 @@ textarea {
 }
 
 .contact-form input,
+.contact-form select,
 .contact-form textarea {
   width: 100%;
   border: 1px solid var(--color-border);
@@ -525,6 +544,7 @@ textarea {
 }
 
 .contact-form input:focus,
+.contact-form select:focus,
 .contact-form textarea:focus {
   outline: 2px solid rgba(18, 149, 104, 0.18);
   border-color: var(--color-primary);

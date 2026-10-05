@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 3) VALIDATION DU FORMULAIRE DE CONTACT
+  // 3) VALIDATION DE LA DEMANDE DE MAINTENANCE ET PRÉPARATION WHATSAPP
   const form = document.querySelector("#contact-form");
   if (!form) return;
 
@@ -177,13 +177,13 @@ document.addEventListener("DOMContentLoaded", () => {
       test: value => value.trim().length >= 2,
       message: "Veuillez saisir votre nom."
     },
-    email: {
-      test: value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()),
-      message: "Veuillez saisir une adresse email valide."
+    service: {
+      test: value => value.trim().length > 0,
+      message: "Veuillez sélectionner un domaine d’intervention."
     },
     message: {
       test: value => value.trim().length >= 10,
-      message: "Le message doit contenir au moins 10 caractères."
+      message: "Veuillez décrire votre besoin (au moins 10 caractères)."
     }
   };
 
@@ -224,8 +224,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!feedback) return;
 
     feedback.className = "form-feedback " + (formIsValid ? "success" : "fail");
-    feedback.textContent = formIsValid
-      ? "Merci ! Validation réussie. Dans cette version front-end, aucun message n'est réellement envoyé."
-      : "Veuillez corriger les champs indiqués.";
+    if (!formIsValid) {
+      feedback.textContent = "Veuillez corriger les champs indiqués.";
+      return;
+    }
+
+    const name = document.getElementById("name").value.trim();
+    const service = document.getElementById("service").value;
+    const message = document.getElementById("message").value.trim();
+    const whatsappMessage = `Bonjour, je m'appelle ${name}. Je vous contacte pour le service suivant : ${service}. Voici mon besoin : ${message}`;
+    const whatsappUrl = `https://wa.me/221774364759?text=${encodeURIComponent(whatsappMessage)}`;
+
+    feedback.textContent = "Ouverture de WhatsApp… Vous pourrez vérifier et envoyer votre demande depuis l’application.";
+    window.location.assign(whatsappUrl);
   });
 });
